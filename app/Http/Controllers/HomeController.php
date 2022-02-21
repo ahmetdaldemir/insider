@@ -92,18 +92,5 @@ class HomeController
         return response()->json(['success' => true, 'data' => $data], 200);
     }
 
-    public function simulate(Request $request)
-    {
-        if ($request->week == "all") {
-            $matches = $this->fixtureRepository->allMatches();
-            $build = new SimilatationService($this->fixtureRepository, $this->matchRepository);
-            $build->simulateAllMatches($matches);
-        } else {
-            $matches = $this->fixtureRepository->getWeekMatch($request->week);
-            $matchSimulator = new SimilatationService($this->fixtureRepository, $this->matchRepository);
-            $matchSimulator->simulateAllMatches($matches);
-        }
-        $data = $this->fixtureRepository->generateFixturesPlan($matches);
-        return response()->json(['status' => 'ok', 'data' => $data], 200);
-    }
+
 }
